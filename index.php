@@ -1,18 +1,45 @@
 <?php
+
 include __DIR__ . '/classes/Movie.php';
+include __DIR__ . '/classes/Genre.php';
+include __DIR__ . '/db.php';
 
-$film1 = new Movie('La vita è bella', 'Benigni');
-// var_dump($film1);
-echo $film1 -> getFullName();
+// $movie1 = new Movie('Film 1', 1990, 'Italy', 'italiano', [new Genre('Horror', 'lorem description')], 'ciao.jpg');
+// $movie2 = new Movie('Film 2', 1980, 'Italy', 'inglese', [new Genre('Horror', 'lorem description')], 'ciao.jpg');
 
-echo '<br>';
+// echo $movie1->getLanguageCode();
+// echo $movie2->getLanguageCode();
 
-$film2 = new Movie('E\' stata la mano di Dio', 'Sorrentino');
-// var_dump($film1);
-echo $film2 -> getFullName();
+// var_dump($movie1); ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Movies</title>
+</head>
+<body>
+	<ul><?php
 
-echo '<br>';
-echo '<br>';
-echo 'Numero di oggetti tipo Movie creati: ' . Movie::$counter;
-echo '<br>';
+		foreach ($arrMovies as $index => $movie) { ?>
+			<li>
+				<ul>
+					<li><img src="img/<?= $movie->img ?>"></li>
+					<li><?= $index + 1 ?></li>
+					<li><?= $movie->title ?></li>
+					<li><?= $movie->getLanguageCode() ?></li>
+					<li>
+						<ul><?php
+							foreach ($movie->genres as $genre) { ?>
+								<li><?= $genre->name ?></li><?
+							} ?>
+						</ul>
+					</li>
+				</ul><?php
+		} ?>
+
+	</ul>
+</body>
+</html>

@@ -1,25 +1,31 @@
 <?php
+
 class Movie {
-    //variabili d'istanza   
-    public string $title;   
-    public string $director;
-    
-    //variabili di classe (statiche)
-    public static int $counter = 0;
-
-    //costruttore
-    public function __construct( string $titolo, string $regista)
-    {
-        $this->title = $titolo;
-        $this->director = $regista;
-
-        self::$counter += 1;
-        
-    }
-
-    // metodi d'istanza
-	public function getFullName($terminazione = '.')
+	public function __construct(
+		public string $title,
+		public int $year, // 123
+		public string $country,
+		public string $language,
+		public array $genres,
+		public string $img
+	)
 	{
-		return $this->title . ', ' . $this->director . $terminazione;
+		if ($title === '') {
+			die('Il titolo non può essere vuoto');
+		}
+
+		if ($year < 1920) {
+			die('Mettere un anno >= 1920');
+		}
+
+		foreach ($genres as $genre) {
+			if (!$genre instanceof Genre) {
+				die('Tutti i generi devono essere di tipo Genre');
+			}
+		}
+	}
+
+	public function getLanguageCode() {
+		return strtoupper(substr($this->language, 0, 3));
 	}
 }
